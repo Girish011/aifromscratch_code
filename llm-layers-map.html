@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Layers Mountain Map</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=boska@500,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #171614;
+      --surface: #1d1c1a;
+      --surface2: #232220;
+      --text: #ece8df;
+      --muted: #b7b1a7;
+      --line: #3f3c37;
+      --accent: #4f98a3;
+      --accent2: #e8af34;
+      --good: #6daa45;
+      --warn: #fdab43;
+      --pink: #d163a7;
+      --shadow: 0 18px 40px rgba(0,0,0,.28);
+      --r: 20px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Satoshi', sans-serif;
+      background: radial-gradient(circle at top, #24373b 0%, var(--bg) 28%), var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+    h1 {
+      font-family: 'Boska', serif;
+      font-size: clamp(2.2rem, 4vw, 4.5rem);
+      line-height: 1;
+      margin: 0 0 12px;
+    }
+    .sub {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      margin-bottom: 28px;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .chip {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+    .mountain {
+      position: relative;
+      display: grid;
+      gap: 16px;
+    }
+    .tier {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .tier::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.03), transparent);
+      pointer-events: none;
+    }
+    .tier-inner {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 18px;
+      padding: 20px;
+      align-items: start;
+    }
+    .left {
+      font-size: .85rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--muted);
+      padding-top: 6px;
+    }
+    .title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .desc {
+      color: var(--muted);
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+    .nodes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .node {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      min-width: 160px;
+      flex: 1 1 180px;
+    }
+    .node b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: .98rem;
+    }
+    .node span {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .runtime { border-left: 5px solid var(--accent); }
+    .behavior { border-left: 5px solid var(--pink); }
+    .weights { border-left: 5px solid var(--good); }
+    .serving { border-left: 5px solid var(--warn); }
+    .infra { border-left: 5px solid var(--accent2); }
+    .footer-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    @media (max-width: 760px) {
+      .tier-inner { grid-template-columns: 1fr; }
+      .left { padding-top: 0; }
+      .node { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>LLM optimization mountain</h1>
+    <p class="sub">A bottom-up map of the main optimization layers in an LLM system, starting from hardware and ending at user-visible behavior. This view helps separate infrastructure choices from model changes and from runtime steering.</p>
+
+    <div class="legend">
+      <div class="chip">Bottom = foundational constraints</div>
+      <div class="chip">Top = closest to end-user behavior</div>
+      <div class="chip">Useful for training, serving, and agent systems</div>
+    </div>
+
+    <div class="mountain">
+      <section class="tier infra">
+        <div class="tier-inner">
+          <div class="left">Layer 1</div>
+          <div>
+            <div class="title">Hardware and infrastructure</div>
+            <div class="desc">The physical base: GPUs, HBM/VRAM, interconnects, storage, host memory, networking, and scheduler choices. These determine what model size, batch size, throughput, and latency are even possible.</div>
+            <div class="nodes">
+              <div class="node"><b>GPU memory</b><span>HBM capacity, bandwidth, VRAM fit.</span></div>
+              <div class="node"><b>Interconnect</b><span>NVLink, PCIe, InfiniBand, Ethernet.</span></div>
+              <div class="node"><b>Storage + cache</b><span>Checkpoint load, KV spill, dataset IO.</span></div>
+              <div class="node"><b>Cluster orchestration</b><span>Scheduling, autoscaling, placement.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tier serving">
+        <div class="tier-inner">
+          <div class="left">Layer 2</div>
+          <div>
+            <div class="title">Serving and systems optimization</div>
+            <div class="desc">How the model is executed efficiently in production. This includes batching, KV cache policy, kernel fusion, speculative decoding, and parallelism strategies across one or many GPUs.</div>
+            <div class="nodes">
+              <div class="node"><b>Batching</b><span>Static, dynamic, continuous batching.</span></div>
+              <div class="node"><b>Parallelism</b><span>Tensor, pipeline, data, expert, context.</span></div>
+              <div class="node"><b>KV cache</b><span>Reuse, paging, prefix caching, eviction.</span></div>
+              <div class="node"><b>Decode tricks</b><span>Speculative decoding, fused kernels.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tier weights">
+        <div class="tier-inner">
+          <div class="left">Layer 3</div>
+          <div>
+            <div class="title">Model weights and architecture</div>
+            <div class="desc">Changes to the model itself: pretraining recipe, fine-tuning, LoRA adapters, quantization, pruning, distillation, MoE routing, and context extension methods.</div>
+            <div class="nodes">
+              <div class="node"><b>Fine-tuning</b><span>SFT, instruction tuning, domain tuning.</span></div>
+              <div class="node"><b>LoRA / PEFT</b><span>Parameter-efficient weight updates.</span></div>
+              <div class="node"><b>Quantization</b><span>INT8, INT4, AWQ, GPTQ, FP8.</span></div>
+              <div class="node"><b>Architecture</b><span>Dense vs MoE, long-context, distillation.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tier behavior">
+        <div class="tier-inner">
+          <div class="left">Layer 4</div>
+          <div>
+            <div class="title">Behavior shaping and steering</div>
+            <div class="desc">Control techniques that alter the model’s tendencies without necessarily retraining the whole base. This is where prompt engineering, activation steering, guardrails, and policy shaping sit.</div>
+            <div class="nodes">
+              <div class="node"><b>Prompt engineering</b><span>System prompts, templates, examples.</span></div>
+              <div class="node"><b>Activation steering</b><span>Steering vectors, suppression, promotion.</span></div>
+              <div class="node"><b>Alignment layer</b><span>Preference shaping, policy constraints.</span></div>
+              <div class="node"><b>Guardrails</b><span>Safety filters, validation, tool policies.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tier runtime">
+        <div class="tier-inner">
+          <div class="left">Layer 5</div>
+          <div>
+            <div class="title">Application and agent runtime</div>
+            <div class="desc">The top layer closest to user experience: RAG, memory, tool use, planners, routers, retries, evaluators, and UI. This is where an end-to-end product feels smart or weak.</div>
+            <div class="nodes">
+              <div class="node"><b>RAG</b><span>Retrieval, reranking, chunking, grounding.</span></div>
+              <div class="node"><b>Agent orchestration</b><span>Tools, planners, workflows, retries.</span></div>
+              <div class="node"><b>Memory</b><span>Session state, long-term memory, profile.</span></div>
+              <div class="node"><b>Evaluation</b><span>Tracing, feedback loops, observability.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="footer-note">Rule of thumb: lower layers improve efficiency and capacity, while upper layers improve control and product behavior. Steering belongs above weight changes but below application orchestration.</p>
+  </div>
+</body>
+</html>

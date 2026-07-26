@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Layered AI engineering foundations map that reveals concepts one by one with diagrams and clickable details." />
+  <title>AI ML Layered Map</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=boska@500,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.55rem, 1.2rem + 1.25vw, 2.3rem);
+      --text-2xl: clamp(2.2rem, 1.2rem + 2.8vw, 4rem);
+      --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.25rem; --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem; --space-12:3rem; --space-16:4rem;
+      --color-bg:#f7f6f2; --color-surface:#fcfbf8; --color-surface-2:#f3eee7; --color-border:#d8d2c8; --color-text:#28251d; --color-text-muted:#5c5851;
+      --color-primary:#01696f; --color-primary-soft:#d5e7e4; --color-blue:#006494; --color-blue-soft:#d4e4ee; --color-gold:#b88700; --color-gold-soft:#eee1b8; --color-success:#437a22; --color-success-soft:#d9e5d1; --color-purple:#7a39bb; --color-purple-soft:#e5d8f4;
+      --modal-block:#fffdf9; --modal-side-bg:#f4efe8; --radius-md:.8rem; --radius-lg:1rem; --radius-xl:1.35rem; --radius-full:9999px; --shadow-sm:0 2px 8px rgba(40,37,29,.05); --shadow-md:0 14px 36px rgba(40,37,29,.09); --shadow-lg:0 24px 60px rgba(40,37,29,.12); --font-display:'Boska', Georgia, serif; --font-body:'Satoshi', Inter, sans-serif; --content:1240px;
+    }
+    [data-theme="dark"] {
+      --color-bg:#171614; --color-surface:#1d1c1a; --color-surface-2:#252321; --color-border:#393633; --color-text:#efe8df; --color-text-muted:#d0c7ba;
+      --color-primary:#57a8b3; --color-primary-soft:#243637; --color-blue:#72b4df; --color-blue-soft:#223541; --color-gold:#efbc4a; --color-gold-soft:#403721; --color-success:#85be61; --color-success-soft:#293526; --color-purple:#b28dea; --color-purple-soft:#32283f;
+      --modal-block:#22201d; --modal-side-bg:#27231f; --shadow-sm:0 2px 8px rgba(0,0,0,.18); --shadow-md:0 14px 36px rgba(0,0,0,.28); --shadow-lg:0 24px 60px rgba(0,0,0,.4);
+    }
+    *{box-sizing:border-box;margin:0;padding:0} body{min-height:100vh;font-family:var(--font-body);font-size:var(--text-base);line-height:1.55;color:var(--color-text);background:var(--color-bg)} button{font:inherit;cursor:pointer;border:0;background:none;color:inherit} svg{display:block;max-width:100%}
+    .shell{max-width:var(--content);margin:0 auto;padding:0 var(--space-4) var(--space-16)} .header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--color-bg) 88%,transparent);border-bottom:1px solid color-mix(in srgb,var(--color-text) 9%,transparent)}
+    .header-inner{max-width:var(--content);margin:0 auto;padding:var(--space-3) var(--space-4);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)} .brand{display:flex;align-items:center;gap:var(--space-3);text-decoration:none;color:inherit}.brand-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--color-primary-soft),color-mix(in srgb,var(--color-surface) 70%,white));box-shadow:var(--shadow-sm)} .brand strong{display:block;font-size:var(--text-sm)} .brand span{display:block;color:var(--color-text-muted);font-size:var(--text-xs)} .theme-toggle{border:1px solid color-mix(in srgb,var(--color-text) 12%,transparent);background:color-mix(in srgb,var(--color-surface) 85%,transparent);border-radius:var(--radius-full);padding:.72rem 1rem}
+    .hero{padding:clamp(var(--space-10),8vw,var(--space-16)) 0 var(--space-10);display:grid;gap:var(--space-6)} .hero-grid{display:grid;grid-template-columns:1fr .95fr;gap:var(--space-8);align-items:center} .eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted)} .eyebrow::before{content:'';width:10px;height:10px;border-radius:999px;background:var(--color-primary)} h1{font-family:var(--font-display);font-size:var(--text-2xl);line-height:.94;max-width:10ch;margin-top:var(--space-4)} .lead{margin-top:var(--space-4);color:var(--color-text-muted);max-width:58ch}
+    .layer-visual{background:linear-gradient(180deg,color-mix(in srgb,var(--color-surface) 86%,white),var(--color-surface-2));border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-md)} .layer-visual h2{font-size:var(--text-lg);margin-bottom:var(--space-4)} .stack-svg{width:100%;min-height:280px;background:color-mix(in srgb,var(--color-bg) 72%,white);border-radius:var(--radius-lg);border:1px dashed color-mix(in srgb,var(--color-text) 10%,transparent);padding:var(--space-4)}
+    .controls{display:grid;grid-template-columns:auto 1fr auto auto;gap:var(--space-3);align-items:center} .step-chip{padding:.8rem 1rem;border-radius:var(--radius-full);background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);font-size:var(--text-sm)} .progress{height:12px;background:color-mix(in srgb,var(--color-text) 8%,transparent);border-radius:999px;overflow:hidden}.progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--color-primary),var(--color-blue));border-radius:999px;transition:width .25s ease}
+    .nav-btn{padding:.8rem 1rem;border-radius:var(--radius-full);background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent)}
+    .section{padding-top:var(--space-10)} .section-header{display:flex;align-items:end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-5)} .section-header h2{font-size:var(--text-xl)} .section-header p{color:var(--color-text-muted);max-width:62ch}
+    .layer-tabs{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-5)} .layer-tab{padding:.7rem .95rem;border-radius:var(--radius-full);background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);font-size:var(--text-sm)} .layer-tab.active{background:color-mix(in srgb,var(--tab-color,var(--color-primary)) 12%,var(--color-surface));border-color:color-mix(in srgb,var(--tab-color,var(--color-primary)) 40%,var(--color-border));color:var(--tab-color,var(--color-primary))}
+    .layer-panel{display:none;grid-template-columns:1.05fr .95fr;gap:var(--space-5);align-items:start} .layer-panel.active{display:grid} .layer-card{background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-sm)} .layer-card h3{font-size:var(--text-xl);margin-bottom:.5rem} .layer-card p{color:var(--color-text-muted)}
+    .mini-flow{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-4)} .mini-flow span{padding:.45rem .7rem;border-radius:999px;background:var(--color-surface-2);font-size:var(--text-xs);color:var(--color-text-muted)} .mini-flow .arrow{background:none;padding:0;color:var(--color-primary);font-weight:700}
+    .topic-list{display:grid;gap:var(--space-3)} .topic-btn{width:100%;text-align:left;padding:var(--space-4);border-radius:var(--radius-lg);background:linear-gradient(180deg,color-mix(in srgb,var(--accent-soft) 58%,var(--color-surface)),color-mix(in srgb,var(--accent-soft) 28%,var(--color-surface-2)));border:1px solid color-mix(in srgb,var(--accent) 20%,var(--color-border));box-shadow:var(--shadow-sm)} .topic-btn h4{font-size:1.05rem;margin-bottom:.35rem} .topic-btn p{font-size:var(--text-sm);color:var(--color-text-muted)} .topic-btn .open{display:inline-flex;margin-top:var(--space-3);font-size:var(--text-sm);font-weight:700;color:color-mix(in srgb,var(--accent) 85%,var(--color-text))}
+    .math{--accent:var(--color-primary);--accent-soft:var(--color-primary-soft)} .stats{--accent:var(--color-gold);--accent-soft:var(--color-gold-soft)} .opt{--accent:var(--color-success);--accent-soft:var(--color-success-soft)} .ml{--accent:var(--color-blue);--accent-soft:var(--color-blue-soft)} .systems{--accent:var(--color-purple);--accent-soft:var(--color-purple-soft)}
+    .diagram-card{background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);border-radius:var(--radius-xl);padding:var(--space-5);box-shadow:var(--shadow-sm)} .diagram-card h4{font-size:var(--text-lg);margin-bottom:.5rem} .diagram-card p{font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-3)} .diagram-svg{width:100%;min-height:260px;background:color-mix(in srgb,var(--color-bg) 72%,white);border-radius:var(--radius-lg);border:1px dashed color-mix(in srgb,var(--color-text) 10%,transparent);padding:var(--space-3)}
+    dialog{width:min(920px,calc(100vw - 1.5rem));border:0;padding:0;border-radius:24px;background:var(--color-surface);color:var(--color-text);box-shadow:var(--shadow-lg)} dialog::backdrop{background:rgba(15,12,10,.56);backdrop-filter:blur(8px)} .modal{display:grid;grid-template-columns:1fr .95fr} .modal-main{padding:var(--space-8)} .modal-side{padding:var(--space-8);background:var(--modal-side-bg);border-left:1px solid color-mix(in srgb,var(--color-text) 8%,transparent)} .modal-close{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:999px;background:color-mix(in srgb,var(--color-text) 8%,transparent)} .modal-kicker{display:inline-flex;align-items:center;gap:.5rem;font-size:var(--text-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-muted)} .modal-kicker::before{content:'';width:10px;height:10px;border-radius:999px;background:var(--panel-accent,var(--color-primary))} .modal h3{font-size:var(--text-xl);line-height:1.02;margin-top:var(--space-3);margin-bottom:var(--space-4)} .detail-block{margin-top:var(--space-5);padding:var(--space-4);border-radius:var(--radius-lg);background:var(--modal-block);border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent)} .detail-block h4,.detail-block p,.detail-block li{color:var(--color-text)} .detail-block ul{list-style:none;display:grid;gap:.55rem} .detail-block li{display:flex;gap:.55rem;font-size:var(--text-sm)} .detail-block li::before{content:'→';color:var(--panel-accent,var(--color-primary));font-weight:700} .formula-card{padding:var(--space-4);background:var(--modal-block);border-radius:var(--radius-lg);border:1px dashed color-mix(in srgb,var(--panel-accent,var(--color-primary)) 28%,var(--color-border));margin-top:var(--space-5)} .formula-card h4,.formula-card p{color:var(--color-text)} .badge-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:var(--space-4)} .badge-row span{padding:.35rem .65rem;border-radius:999px;background:color-mix(in srgb,var(--panel-accent,var(--color-primary)) 12%,rgba(255,255,255,.55));color:color-mix(in srgb,var(--panel-accent,var(--color-primary)) 80%,var(--color-text));font-size:var(--text-xs)}
+    @media (max-width:1100px){.hero-grid,.layer-panel,.modal,.controls{grid-template-columns:1fr}.controls{display:grid}.modal-side{border-left:0;border-top:1px solid color-mix(in srgb,var(--color-text) 8%,transparent)}}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17 12 4l8 13"></path><path d="M8.5 17h7"></path><circle cx="12" cy="13" r="2.2"></circle></svg></span>
+        <span><strong>AI Layered Map</strong><span>learn one layer at a time</span></span>
+      </a>
+      <button class="theme-toggle" type="button" data-theme-toggle>◐</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" id="top">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">One by one learning</span>
+          <h1>Yes — now it is a layered map.</h1>
+          <p class="lead">This version is built like a step-by-step learning path. Instead of seeing everything at once, you move layer by layer: first objects, then transformations, then training, then uncertainty, then ML models, then systems.</p>
+        </div>
+        <aside class="layer-visual">
+          <h2>Layer stack overview</h2>
+          <svg class="stack-svg" viewBox="0 0 620 320" aria-label="Layered stack overview">
+            <rect x="80" y="220" width="460" height="48" rx="20" fill="var(--color-purple-soft)" stroke="var(--color-purple)" />
+            <text x="242" y="249" fill="currentColor" font-size="20" font-family="Satoshi, sans-serif">Systems layer</text>
+            <rect x="100" y="176" width="420" height="44" rx="18" fill="var(--color-blue-soft)" stroke="var(--color-blue)" />
+            <text x="238" y="203" fill="currentColor" font-size="20" font-family="Satoshi, sans-serif">ML layer</text>
+            <rect x="122" y="134" width="376" height="42" rx="18" fill="var(--color-gold-soft)" stroke="var(--color-gold)" />
+            <text x="216" y="160" fill="currentColor" font-size="20" font-family="Satoshi, sans-serif">Probability layer</text>
+            <rect x="144" y="94" width="332" height="40" rx="18" fill="var(--color-success-soft)" stroke="var(--color-success)" />
+            <text x="222" y="119" fill="currentColor" font-size="20" font-family="Satoshi, sans-serif">Training layer</text>
+            <rect x="166" y="56" width="288" height="38" rx="18" fill="var(--color-blue-soft)" opacity=".65" stroke="var(--color-blue)" />
+            <text x="184" y="80" fill="currentColor" font-size="20" font-family="Satoshi, sans-serif">Transform layer</text>
+            <rect x="188" y="22" width="244" height="34" rx="16" fill="var(--color-primary-soft)" stroke="var(--color-primary)" />
+            <text x="232" y="44" fill="currentColor" font-size="20" font-family="Satoshi, sans-serif">Object layer</text>
+          </svg>
+        </aside>
+      </div>
+
+      <div class="controls">
+        <div class="step-chip">Current layer: <strong id="currentLayerLabel">1 / 6</strong></div>
+        <div class="progress" aria-label="Layer progress"><span id="progressFill"></span></div>
+        <button class="nav-btn" id="prevLayer">← Previous</button>
+        <button class="nav-btn" id="nextLayer">Next →</button>
+      </div>
+    </section>
+
+    <section class="section" id="layers">
+      <div class="section-header">
+        <div>
+          <h2>Layered map</h2>
+          <p>Use the tabs or previous/next buttons to move one layer at a time. Each layer has its own visual and its own topics.</p>
+        </div>
+      </div>
+
+      <div class="layer-tabs">
+        <button class="layer-tab active" style="--tab-color:var(--color-primary)" data-layer="0">1. Objects</button>
+        <button class="layer-tab" style="--tab-color:var(--color-blue)" data-layer="1">2. Transformations</button>
+        <button class="layer-tab" style="--tab-color:var(--color-success)" data-layer="2">3. Training</button>
+        <button class="layer-tab" style="--tab-color:var(--color-gold)" data-layer="3">4. Probability</button>
+        <button class="layer-tab" style="--tab-color:var(--color-blue)" data-layer="4">5. ML Models</button>
+        <button class="layer-tab" style="--tab-color:var(--color-purple)" data-layer="5">6. Systems</button>
+      </div>
+
+      <div class="layer-panel active" data-layer-panel="0">
+        <article class="layer-card">
+          <h3>Layer 1 · Objects</h3>
+          <p>Start with the basic containers of information. If this layer is clear, later topics feel much less abstract.</p>
+          <div class="mini-flow"><span>vector</span><span class="arrow">→</span><span>matrix</span><span class="arrow">→</span><span>tensor</span></div>
+          <div class="topic-list" style="margin-top:var(--space-5)">
+            <button class="topic-btn math topic" data-color="var(--color-primary)" data-phase="Layer 1 · Objects" data-title="Vectors, norms, distances" data-summary="A vector is one object written as numbers. Norms measure size and distances compare two objects." data-intuition="Embeddings are vectors. Similar meaning often means similar vector direction or distance." data-used="Embeddings and vector databases|Semantic search and retrieval|Similarity scoring and KNN" data-example="A sentence embedding is a vector used to compare documents." data-watch="Learn direction, magnitude, and similarity intuition before focusing on formulas." data-tags="vector embedding cosine distance" data-formula="Cosine similarity measures how aligned two vectors are."><h4>Vectors, norms, distances</h4><p>Embeddings, similarity, nearest neighbors.</p><span class="open">Open details →</span></button>
+            <button class="topic-btn math topic" data-color="var(--color-primary)" data-phase="Layer 1 · Objects" data-title="Matrices and tensors" data-summary="A matrix is a grid of numbers. A tensor generalizes this idea to higher dimensions." data-intuition="Datasets, weight tables, image batches, and attention blocks are all stored as arrays with shape." data-used="Linear layers and batch computation|Image, text, and audio tensors|GPU-friendly model operations" data-example="A batch of images may be batch × height × width × channels." data-watch="Always ask what each axis means." data-tags="matrix tensor shape batch" data-formula="Shape meaning is more important than memorizing dimension names."><h4>Matrices and tensors</h4><p>Rows, columns, shapes, higher-dimensional arrays.</p><span class="open">Open details →</span></button>
+          </div>
+        </article>
+        <article class="diagram-card">
+          <h4>Objects diagram</h4>
+          <svg class="diagram-svg" viewBox="0 0 420 280" aria-label="Object layer diagram">
+            <line x1="42" y1="232" x2="190" y2="86" stroke="var(--color-primary)" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="190" cy="86" r="10" fill="var(--color-primary)"/>
+            <text x="210" y="92" fill="currentColor" font-size="20" font-family="Satoshi, sans-serif">vector</text>
+            <g transform="translate(232,46)">
+              <rect x="0" y="0" width="52" height="38" rx="8" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/><rect x="62" y="0" width="52" height="38" rx="8" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/><rect x="124" y="0" width="52" height="38" rx="8" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/>
+              <rect x="0" y="48" width="52" height="38" rx="8" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/><rect x="62" y="48" width="52" height="38" rx="8" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/><rect x="124" y="48" width="52" height="38" rx="8" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/>
+              <text x="44" y="110" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">matrix</text>
+            </g>
+            <rect x="92" y="150" width="96" height="60" rx="12" fill="var(--color-purple-soft)" stroke="var(--color-purple)"/>
+            <rect x="106" y="136" width="96" height="60" rx="12" fill="var(--color-purple-soft)" stroke="var(--color-purple)"/>
+            <rect x="120" y="122" width="96" height="60" rx="12" fill="var(--color-purple-soft)" stroke="var(--color-purple)"/>
+            <text x="112" y="254" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">tensor = stacked arrays</text>
+          </svg>
+          <p>Object layer means: what shape holds the data or the parameters?</p>
+        </article>
+      </div>
+
+      <div class="layer-panel" data-layer-panel="1">
+        <article class="layer-card">
+          <h3>Layer 2 · Transformations</h3>
+          <p>Once you know the objects, learn what can happen to them. This layer explains projection, rotation, compression, and dominant directions.</p>
+          <div class="mini-flow"><span>matrix multiply</span><span class="arrow">→</span><span>transform</span><span class="arrow">→</span><span>eigen intuition</span><span class="arrow">→</span><span>PCA / SVD</span></div>
+          <div class="topic-list" style="margin-top:var(--space-5)">
+            <button class="topic-btn math topic" data-color="var(--color-blue)" data-phase="Layer 2 · Transformations" data-title="Matrix multiplication and transforms" data-summary="Matrices can rotate, stretch, compress, or project vectors." data-intuition="A linear layer is a learned transformation from one feature space to another." data-used="Neural network forward passes|Attention projections|Feature transforms" data-example="A weight matrix turns input features into hidden features." data-watch="Try to see multiplication as transformation, not only arithmetic." data-tags="matrix multiplication transform projection" data-formula="A matrix multiply is a structured weighted combination."><h4>Matrix multiplication and transforms</h4><p>Turn one feature space into another.</p><span class="open">Open details →</span></button>
+            <button class="topic-btn math topic" data-color="var(--color-blue)" data-phase="Layer 2 · Transformations" data-title="Eigenvalues, eigenvectors, PCA, SVD" data-summary="Eigenvectors are special directions of a transformation; eigenvalues show scaling. PCA and SVD use this structure." data-intuition="Some directions in data matter more than others. PCA tries to find them." data-used="Dimensionality reduction|Low-rank approximations|Embedding analysis" data-example="Compressing many correlated features into a few principal directions." data-watch="PCA is often easier after understanding covariance as structure, not just formula." data-tags="eigen pca svd covariance" data-formula="PCA keeps high-variance directions; SVD gives a general matrix factorization view."><h4>Eigenvalues, PCA, SVD</h4><p>Find important directions and compress structure.</p><span class="open">Open details →</span></button>
+          </div>
+        </article>
+        <article class="diagram-card">
+          <h4>Transformation diagram</h4>
+          <svg class="diagram-svg" viewBox="0 0 420 280" aria-label="Transformation layer diagram">
+            <rect x="58" y="74" width="92" height="92" rx="10" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/>
+            <text x="80" y="124" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">input</text>
+            <line x1="152" y1="120" x2="244" y2="120" stroke="var(--color-blue)" stroke-width="6"/>
+            <polygon points="244,120 226,108 226,132" fill="var(--color-blue)"/>
+            <rect x="262" y="60" width="108" height="124" rx="10" fill="var(--color-success-soft)" stroke="var(--color-success)" transform="rotate(12 316 122)"/>
+            <text x="280" y="125" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">transformed</text>
+            <text x="76" y="220" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">matrix changes the space</text>
+          </svg>
+          <p>Transformation layer means: how do objects change when an operation is applied?</p>
+        </article>
+      </div>
+
+      <div class="layer-panel" data-layer-panel="2">
+        <article class="layer-card">
+          <h3>Layer 3 · Training</h3>
+          <p>This layer explains learning itself: loss, gradients, chain rule, and optimization.</p>
+          <div class="mini-flow"><span>prediction</span><span class="arrow">→</span><span>loss</span><span class="arrow">→</span><span>gradient</span><span class="arrow">→</span><span>update</span></div>
+          <div class="topic-list" style="margin-top:var(--space-5)">
+            <button class="topic-btn opt topic" data-color="var(--color-success)" data-phase="Layer 3 · Training" data-title="Derivatives, gradients, chain rule" data-summary="A derivative measures local change. A gradient is the set of derivatives across parameters." data-intuition="Loss depends on prediction, prediction depends on parameters, so gradient information flows backward." data-used="Backpropagation|Differentiable programming|Neural network training" data-example="If changing one weight increases loss, the optimizer moves it the other way." data-watch="Connect calculus to learning behavior, not just symbol manipulation." data-tags="gradient derivative chain rule backprop" data-formula="Gradient points to steepest increase; gradient descent moves opposite."><h4>Derivatives, gradients, chain rule</h4><p>The language of learning signals.</p><span class="open">Open details →</span></button>
+            <button class="topic-btn opt topic" data-color="var(--color-success)" data-phase="Layer 3 · Training" data-title="Optimization and gradient descent family" data-summary="Optimization means finding parameters that reduce loss. Gradient methods use derivative information to update weights." data-intuition="Training repeats: predict, measure error, compute gradient, update, repeat." data-used="SGD, Momentum, RMSProp, Adam|Fine-tuning and training loops|Learning-rate scheduling" data-example="Adam often converges faster than plain SGD in practice." data-watch="Optimizer choice matters, but learning rate often matters even more." data-tags="optimization sgd adam learning rate" data-formula="Different optimizers mainly differ in how they scale and smooth updates over time."><h4>Optimization and gradient descent family</h4><p>How parameters actually improve over time.</p><span class="open">Open details →</span></button>
+          </div>
+        </article>
+        <article class="diagram-card">
+          <h4>Training diagram</h4>
+          <svg class="diagram-svg" viewBox="0 0 420 280" aria-label="Training layer diagram">
+            <rect x="26" y="90" width="86" height="48" rx="14" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/>
+            <text x="44" y="119" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">predict</text>
+            <rect x="162" y="90" width="86" height="48" rx="14" fill="var(--color-gold-soft)" stroke="var(--color-gold)"/>
+            <text x="188" y="119" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">loss</text>
+            <rect x="298" y="90" width="96" height="48" rx="14" fill="var(--color-success-soft)" stroke="var(--color-success)"/>
+            <text x="314" y="119" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">gradient</text>
+            <line x1="112" y1="114" x2="162" y2="114" stroke="var(--color-primary)" stroke-width="6"/><polygon points="162,114 146,102 146,126" fill="var(--color-primary)"/>
+            <line x1="248" y1="114" x2="298" y2="114" stroke="var(--color-primary)" stroke-width="6"/><polygon points="298,114 282,102 282,126" fill="var(--color-primary)"/>
+            <path d="M346 142 C330 184, 246 214, 146 214 C94 214, 68 196, 52 164" fill="none" stroke="var(--color-success)" stroke-width="6" stroke-linecap="round"/>
+            <polygon points="52,164 66,174 47,182" fill="var(--color-success)"/>
+            <text x="116" y="252" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">gradient flows back, weights update, loss drops</text>
+          </svg>
+          <p>Training layer means: how does the model know which direction to change?</p>
+        </article>
+      </div>
+
+      <div class="layer-panel" data-layer-panel="3">
+        <article class="layer-card">
+          <h3>Layer 4 · Probability</h3>
+          <p>This layer adds uncertainty, evidence, and statistical reasoning. It helps explain why model outputs are often probabilities instead of certainties.</p>
+          <div class="mini-flow"><span>uncertainty</span><span class="arrow">→</span><span>distribution</span><span class="arrow">→</span><span>Bayes</span><span class="arrow">→</span><span>sampling</span></div>
+          <div class="topic-list" style="margin-top:var(--space-5)">
+            <button class="topic-btn stats topic" data-color="var(--color-gold)" data-phase="Layer 4 · Probability" data-title="Probability, distributions, Bayes" data-summary="Probability models uncertainty, distributions describe spread, and Bayes updates belief using evidence." data-intuition="Model outputs are often confidence-like statements, not exact truths." data-used="Naive Bayes|Calibration|Uncertainty estimation|Sampling and inference" data-example="Spam probability changes after observing suspicious words." data-watch="Conditional probability is the big mental switch for most learners." data-tags="probability bayes distribution uncertainty" data-formula="New belief = old belief updated by evidence."><h4>Probability, distributions, Bayes</h4><p>Reason under uncertainty and evidence.</p><span class="open">Open details →</span></button>
+            <button class="topic-btn stats topic" data-color="var(--color-gold)" data-phase="Layer 4 · Probability" data-title="Statistics and sampling" data-summary="Statistics helps summarize, estimate, test, and reason from data. Sampling decides which pieces of data or randomness you observe." data-intuition="Good decisions come from patterns in data, not isolated examples." data-used="EDA and data validation|Experiment analysis|Mini-batch training|Monte Carlo style reasoning" data-example="A batch is a sample from the training data used to estimate a gradient." data-watch="Metrics from small samples can be noisy; always ask how stable the estimate is." data-tags="statistics sampling estimation confidence" data-formula="A sample gives an estimate, not the full truth."><h4>Statistics and sampling</h4><p>Summaries, estimates, confidence, and data reasoning.</p><span class="open">Open details →</span></button>
+          </div>
+        </article>
+        <article class="diagram-card">
+          <h4>Probability diagram</h4>
+          <svg class="diagram-svg" viewBox="0 0 420 280" aria-label="Probability layer diagram">
+            <path d="M42 206 C92 72, 142 74, 196 206" fill="none" stroke="var(--color-gold)" stroke-width="8" stroke-linecap="round"/>
+            <path d="M180 206 C230 104, 290 102, 372 206" fill="none" stroke="var(--color-purple)" stroke-width="8" stroke-linecap="round"/>
+            <text x="74" y="230" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">distribution A</text>
+            <text x="244" y="230" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">distribution B</text>
+            <text x="110" y="46" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">probability means spread + uncertainty</text>
+          </svg>
+          <p>Probability layer means: how likely is something, and how uncertain are we?</p>
+        </article>
+      </div>
+
+      <div class="layer-panel" data-layer-panel="4">
+        <article class="layer-card">
+          <h3>Layer 5 · ML models</h3>
+          <p>Only after the earlier layers should you focus on ML algorithms. They will feel simpler because you already understand objects, transformations, learning, and uncertainty.</p>
+          <div class="mini-flow"><span>regression</span><span class="arrow">→</span><span>trees</span><span class="arrow">→</span><span>KNN / SVM</span><span class="arrow">→</span><span>evaluation</span></div>
+          <div class="topic-list" style="margin-top:var(--space-5)">
+            <button class="topic-btn ml topic" data-color="var(--color-blue)" data-phase="Layer 5 · ML models" data-title="Regression models" data-summary="Linear regression predicts numbers and logistic regression predicts class probabilities." data-intuition="These are the cleanest first models for understanding features, weights, and loss." data-used="Prediction baselines|Spam and conversion classification|Interpretable tabular models" data-example="Price prediction versus spam or not-spam classification." data-watch="Do not skip these because they look simple. They teach the full learning loop clearly." data-tags="linear regression logistic regression baseline" data-formula="Simple models are often the clearest teachers."><h4>Regression models</h4><p>Best starting point for predictive ML intuition.</p><span class="open">Open details →</span></button>
+            <button class="topic-btn ml topic" data-color="var(--color-blue)" data-phase="Layer 5 · ML models" data-title="Trees, clustering, classical ML, evaluation" data-summary="Tree methods split by rules, clustering groups unlabeled data, and evaluation tells you whether the model actually generalizes." data-intuition="Different models are different biases about how patterns in the data should look." data-used="Tabular prediction|Segmentation|Anomaly detection|Cross-validation and metric selection" data-example="Random forests for churn, k-means for segmentation, precision/recall for imbalanced tasks." data-watch="Bad evaluation can make a weak model look strong." data-tags="trees clustering svm knn evaluation metrics" data-formula="The model is only as trustworthy as the way you evaluate it."><h4>Trees, clustering, evaluation</h4><p>Classical ML families and how to judge them.</p><span class="open">Open details →</span></button>
+          </div>
+        </article>
+        <article class="diagram-card">
+          <h4>ML model layer diagram</h4>
+          <svg class="diagram-svg" viewBox="0 0 420 280" aria-label="ML model layer diagram">
+            <rect x="34" y="88" width="104" height="52" rx="14" fill="var(--color-blue-soft)" stroke="var(--color-blue)"/>
+            <text x="58" y="120" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">data</text>
+            <rect x="164" y="56" width="104" height="52" rx="14" fill="var(--color-success-soft)" stroke="var(--color-success)"/>
+            <text x="182" y="88" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">model</text>
+            <rect x="164" y="156" width="104" height="52" rx="14" fill="var(--color-gold-soft)" stroke="var(--color-gold)"/>
+            <text x="188" y="188" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">metric</text>
+            <rect x="294" y="88" width="92" height="52" rx="14" fill="var(--color-purple-soft)" stroke="var(--color-purple)"/>
+            <text x="308" y="120" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">output</text>
+            <line x1="138" y1="114" x2="164" y2="84" stroke="var(--color-primary)" stroke-width="6"/><line x1="138" y1="114" x2="164" y2="182" stroke="var(--color-primary)" stroke-width="6"/><line x1="268" y1="84" x2="294" y2="114" stroke="var(--color-primary)" stroke-width="6"/>
+          </svg>
+          <p>ML model layer means: which algorithm will transform data into a useful prediction or grouping?</p>
+        </article>
+      </div>
+
+      <div class="layer-panel" data-layer-panel="5">
+        <article class="layer-card">
+          <h3>Layer 6 · Systems and reliability</h3>
+          <p>Final layer: now connect the math and ML ideas to production AI engineering. This is where tensors, entropy, numerical stability, Fourier ideas, graph structure, and stochastic behavior become important.</p>
+          <div class="mini-flow"><span>tensor shape</span><span class="arrow">→</span><span>stable compute</span><span class="arrow">→</span><span>entropy / KL</span><span class="arrow">→</span><span>system behavior</span></div>
+          <div class="topic-list" style="margin-top:var(--space-5)">
+            <button class="topic-btn systems topic" data-color="var(--color-purple)" data-phase="Layer 6 · Systems" data-title="Tensors and numerical stability" data-summary="Tensors hold high-dimensional data; numerical stability keeps the computations safe under finite precision." data-intuition="A model can be mathematically correct but still fail in code because of overflow, underflow, or bad scaling." data-used="Attention tensors|Image and sequence batches|Stable softmax and mixed precision training" data-example="Softmax is often implemented with stabilization tricks so exponentials do not explode." data-watch="Production failures often come from stability and shape mistakes, not from the core math itself." data-tags="tensor numerical stability softmax precision" data-formula="Stable computation is part of model correctness."><h4>Tensors and numerical stability</h4><p>Make the math survive real hardware and floating point limits.</p><span class="open">Open details →</span></button>
+            <button class="topic-btn systems topic" data-color="var(--color-purple)" data-phase="Layer 6 · Systems" data-title="Entropy, KL, graphs, stochastic processes" data-summary="Entropy measures uncertainty; KL divergence measures mismatch between distributions. Graphs model relationships, and stochastic processes model evolving randomness." data-intuition="This is where theory starts helping with sequence models, graph ML, generative models, and monitoring." data-used="Language-model losses and distillation|Graph neural networks|Diffusion and noisy temporal systems" data-example="KL divergence appears in variational and distillation settings; graph structure appears in recommendation and knowledge graphs." data-watch="These topics feel easier once the earlier layers are solid." data-tags="entropy kl graph stochastic process diffusion" data-formula="Information and randomness become engineering tools here."><h4>Entropy, KL, graphs, stochastic processes</h4><p>Advanced ideas that show up in modern AI systems.</p><span class="open">Open details →</span></button>
+          </div>
+        </article>
+        <article class="diagram-card">
+          <h4>Systems layer diagram</h4>
+          <svg class="diagram-svg" viewBox="0 0 420 280" aria-label="Systems layer diagram">
+            <rect x="40" y="74" width="110" height="78" rx="14" fill="var(--color-purple-soft)" stroke="var(--color-purple)"/>
+            <text x="64" y="114" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">tensor</text>
+            <text x="60" y="136" fill="currentColor" font-size="14" font-family="Satoshi, sans-serif">batch × seq × dim</text>
+            <circle cx="236" cy="112" r="44" fill="var(--color-gold-soft)" stroke="var(--color-gold)"/>
+            <text x="212" y="118" fill="currentColor" font-size="18" font-family="Satoshi, sans-serif">KL</text>
+            <g transform="translate(306,70)">
+              <circle cx="0" cy="0" r="10" fill="var(--color-success)"/><circle cx="52" cy="-18" r="10" fill="var(--color-success)"/><circle cx="74" cy="28" r="10" fill="var(--color-success)"/><circle cx="26" cy="56" r="10" fill="var(--color-success)"/>
+              <line x1="0" y1="0" x2="52" y2="-18" stroke="var(--color-success)" stroke-width="4"/><line x1="52" y1="-18" x2="74" y2="28" stroke="var(--color-success)" stroke-width="4"/><line x1="0" y1="0" x2="26" y2="56" stroke="var(--color-success)" stroke-width="4"/><line x1="26" y1="56" x2="74" y2="28" stroke="var(--color-success)" stroke-width="4"/>
+            </g>
+            <text x="314" y="168" fill="currentColor" font-size="16" font-family="Satoshi, sans-serif">graph</text>
+            <line x1="150" y1="112" x2="192" y2="112" stroke="var(--color-primary)" stroke-width="6"/>
+            <line x1="280" y1="112" x2="306" y2="98" stroke="var(--color-primary)" stroke-width="6"/>
+          </svg>
+          <p>Systems layer means: how does this theory show up in real AI engineering systems?</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="topicDialog" aria-labelledby="modalTitle">
+    <form method="dialog"><button class="modal-close" aria-label="Close details">✕</button></form>
+    <div class="modal">
+      <section class="modal-main">
+        <div class="modal-kicker" id="modalPhase"></div>
+        <h3 id="modalTitle"></h3>
+        <p id="modalSummary"></p>
+        <div class="detail-block"><h4>Easy intuition</h4><p id="modalIntuition"></p></div>
+        <div class="formula-card"><h4>Quick mental note</h4><p id="modalFormula"></p></div>
+        <div class="badge-row" id="modalTags"></div>
+      </section>
+      <aside class="modal-side">
+        <div class="detail-block"><h4>Where it is used in AI engineering</h4><ul id="modalUsed"></ul></div>
+        <div class="detail-block"><h4>Example</h4><p id="modalExample"></p></div>
+        <div class="detail-block"><h4>What to watch out for</h4><p id="modalWatch"></p></div>
+      </aside>
+    </div>
+  </dialog>
+
+  <script>
+    (function(){
+      const root=document.documentElement; const toggle=document.querySelector('[data-theme-toggle]'); let theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; root.setAttribute('data-theme',theme); toggle.addEventListener('click',()=>{theme=theme==='dark'?'light':'dark'; root.setAttribute('data-theme',theme);});
+      const tabs=[...document.querySelectorAll('.layer-tab')]; const panels=[...document.querySelectorAll('.layer-panel')]; const prev=document.getElementById('prevLayer'); const next=document.getElementById('nextLayer'); const label=document.getElementById('currentLayerLabel'); const fill=document.getElementById('progressFill'); let current=0;
+      function renderLayer(i){ current=Math.max(0,Math.min(i,pannelsMax())); tabs.forEach((t,idx)=>t.classList.toggle('active',idx===current)); panels.forEach((p,idx)=>p.classList.toggle('active',idx===current)); label.textContent=`${current+1} / ${panels.length}`; fill.style.width=`${((current+1)/panels.length)*100}%`; }
+      function pannelsMax(){ return panels.length-1; }
+      tabs.forEach(tab=>tab.addEventListener('click',()=>renderLayer(Number(tab.dataset.layer)))); prev.addEventListener('click',()=>renderLayer(current-1)); next.addEventListener('click',()=>renderLayer(current+1)); renderLayer(0);
+      const dialog=document.getElementById('topicDialog'); const cards=[...document.querySelectorAll('.topic')];
+      function fillModal(card){ const tags=(card.dataset.tags||'').split(' ').filter(Boolean); document.getElementById('modalPhase').textContent=card.dataset.phase||''; document.getElementById('modalTitle').textContent=card.dataset.title||''; document.getElementById('modalSummary').textContent=card.dataset.summary||''; document.getElementById('modalIntuition').textContent=card.dataset.intuition||''; document.getElementById('modalFormula').textContent=card.dataset.formula||''; document.getElementById('modalExample').textContent=card.dataset.example||''; document.getElementById('modalWatch').textContent=card.dataset.watch||''; const used=document.getElementById('modalUsed'); used.innerHTML=''; (card.dataset.used||'').split('|').filter(Boolean).forEach(item=>{const li=document.createElement('li'); li.textContent=item; used.appendChild(li);}); const tagsWrap=document.getElementById('modalTags'); tagsWrap.innerHTML=''; tags.forEach(tag=>{const span=document.createElement('span'); span.textContent=tag; tagsWrap.appendChild(span);}); dialog.style.setProperty('--panel-accent',card.dataset.color||'var(--color-primary)'); }
+      cards.forEach(card=>card.addEventListener('click',()=>{fillModal(card); dialog.showModal();})); dialog.addEventListener('click',(e)=>{const r=dialog.getBoundingClientRect(); const inside=r.top<=e.clientY&&e.clientY<=r.top+r.height&&r.left<=e.clientX&&e.clientX<=r.left+r.width; if(!inside) dialog.close();});
+    })();
+  </script>
+</body>
+</html>

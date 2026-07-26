@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A visual learning map of AI engineering foundations: vectors, linear algebra, calculus, probability, optimization, ML fundamentals, and where each idea is used." />
+  <title>AI ML Foundations Map</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=boska@500,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+      --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+      --space-12: 3rem; --space-16: 4rem; --space-20: 5rem;
+      --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #fbfbf9;
+      --color-surface-offset: #f3f0ec; --color-border: #d4d1ca; --color-divider: #dcd9d5;
+      --color-text: #28251d; --color-text-muted: #67655f; --color-text-faint: #9a9892;
+      --color-primary: #01696f; --color-primary-hover: #0c4e54; --color-primary-highlight: #cedcd8;
+      --color-blue: #006494; --color-gold: #d19900; --color-success: #437a22; --color-purple: #7a39bb;
+      --radius-sm: 0.5rem; --radius-md: 0.8rem; --radius-lg: 1rem; --radius-xl: 1.25rem; --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px rgba(40,37,29,.06); --shadow-md: 0 8px 24px rgba(40,37,29,.08); --shadow-lg: 0 18px 48px rgba(40,37,29,.12);
+      --font-display: 'Boska', Georgia, serif; --font-body: 'Satoshi', Inter, sans-serif;
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --content: 1180px;
+    }
+    [data-theme="dark"] {
+      --color-bg: #171614; --color-surface: #1c1b19; --color-surface-2: #201f1d; --color-surface-offset: #23211f;
+      --color-border: #393836; --color-divider: #262523; --color-text: #ece8df; --color-text-muted: #b6b1a7; --color-text-faint: #7f7b74;
+      --color-primary: #4f98a3; --color-primary-hover: #6caab3; --color-primary-highlight: #313b3b;
+      --color-blue: #6faad7; --color-gold: #e8af34; --color-success: #7cb25c; --color-purple: #b38ae7;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.24); --shadow-md: 0 8px 24px rgba(0,0,0,.32); --shadow-lg: 0 18px 48px rgba(0,0,0,.42);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      min-height: 100vh; font-family: var(--font-body); font-size: var(--text-base); line-height: 1.6;
+      color: var(--color-text); background:
+      radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 26%),
+      radial-gradient(circle at bottom left, color-mix(in srgb, var(--color-gold) 10%, transparent), transparent 22%),
+      var(--color-bg);
+    }
+    a { color: inherit; }
+    img, svg { display: block; max-width: 100%; }
+    button { font: inherit; cursor: pointer; }
+    .skip-link { position: absolute; left: -999px; top: var(--space-2); }
+    .skip-link:focus { left: var(--space-2); background: var(--color-surface); padding: var(--space-2) var(--space-3); z-index: 1000; }
+    .shell { max-width: var(--content); margin: 0 auto; padding: 0 var(--space-4) var(--space-16); }
+    .header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--color-bg) 82%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    }
+    .header-inner { max-width: var(--content); margin: 0 auto; padding: var(--space-3) var(--space-4); display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+    .brand { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; }
+    .brand-mark { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--color-primary-highlight), color-mix(in srgb, var(--color-bg) 65%, white)); display: grid; place-items: center; box-shadow: var(--shadow-sm); }
+    .brand svg { width: 24px; height: 24px; color: var(--color-primary); }
+    .brand-copy strong { display: block; font-size: var(--text-sm); letter-spacing: .02em; }
+    .brand-copy span { display: block; font-size: var(--text-xs); color: var(--color-text-muted); }
+    .header-actions { display: flex; align-items: center; gap: var(--space-2); }
+    .pill-link, .theme-toggle { border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent); background: color-mix(in srgb, var(--color-surface) 80%, transparent); color: var(--color-text); border-radius: var(--radius-full); padding: .7rem 1rem; text-decoration: none; transition: all var(--transition); }
+    .pill-link:hover, .theme-toggle:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--color-primary) 28%, var(--color-border)); }
+    .hero { padding: clamp(var(--space-10), 9vw, var(--space-20)) 0 var(--space-12); display: grid; gap: var(--space-8); }
+    .eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--color-text-muted); }
+    .eyebrow::before { content: ''; width: 10px; height: 10px; border-radius: 999px; background: var(--color-primary); }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: var(--space-8); align-items: start; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(2.6rem, 6vw, 5.2rem); line-height: .95; max-width: 12ch; letter-spacing: -.02em; }
+    .hero p.lead { max-width: 64ch; color: var(--color-text-muted); margin-top: var(--space-4); }
+    .hero-card {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--color-surface-2) 90%, white), var(--color-surface));
+      border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); border-radius: var(--radius-xl); padding: var(--space-6); box-shadow: var(--shadow-md);
+    }
+    .mini-map { display: grid; gap: var(--space-3); }
+    .mini-row { display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); align-items: center; font-size: var(--text-sm); }
+    .mini-row .tag { background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface-offset)); color: var(--color-primary); border-radius: var(--radius-full); padding: .25rem .6rem; font-size: var(--text-xs); }
+    .section { padding-top: var(--space-12); }
+    .section-title { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); }
+    .section-title h2 { font-size: var(--text-xl); line-height: 1.05; }
+    .section-title p { color: var(--color-text-muted); max-width: 62ch; }
+    .legend { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6); }
+    .legend span { display: inline-flex; align-items: center; gap: .45rem; font-size: var(--text-xs); padding: .4rem .8rem; border-radius: var(--radius-full); background: var(--color-surface); border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); }
+    .dot { width: 10px; height: 10px; border-radius: 999px; }
+    .roadmap { display: grid; gap: var(--space-6); }
+    .phase {
+      position: relative; background: color-mix(in srgb, var(--color-surface) 96%, transparent); border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+      border-radius: calc(var(--radius-xl) + 2px); padding: var(--space-6); box-shadow: var(--shadow-sm);
+    }
+    .phase::before { content: ''; position: absolute; left: 28px; top: 84px; bottom: 28px; width: 2px; background: linear-gradient(var(--color-primary), color-mix(in srgb, var(--color-primary) 0%, transparent)); }
+    .phase-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); }
+    .phase-number { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .14em; color: var(--color-text-muted); }
+    .phase-name { font-size: var(--text-lg); margin-top: .2rem; }
+    .phase-badge { font-size: var(--text-xs); color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 10%, var(--color-primary-highlight)); padding: .45rem .75rem; border-radius: var(--radius-full); }
+    .concept-list { display: grid; gap: var(--space-4); }
+    .concept {
+      position: relative; margin-left: var(--space-8); background: var(--color-surface-2); border-radius: var(--radius-lg); padding: var(--space-5); border: 1px solid color-mix(in srgb, var(--color-text) 9%, transparent);
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-5);
+    }
+    .concept::before {
+      content: ''; position: absolute; left: calc(-1 * var(--space-6)); top: 1.25rem; width: 18px; height: 18px; border-radius: 999px; background: var(--accent, var(--color-primary)); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent, var(--color-primary)) 16%, transparent);
+    }
+    .concept::after { content: ''; position: absolute; left: calc(-1 * var(--space-6) + 8px); top: 1.25rem; width: calc(var(--space-6) - 8px); height: 2px; background: color-mix(in srgb, var(--accent, var(--color-primary)) 40%, var(--color-divider)); }
+    .concept h3 { font-size: 1.08rem; line-height: 1.25; margin-bottom: .45rem; }
+    .concept p { color: var(--color-text-muted); font-size: var(--text-sm); }
+    .concept .example { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); background: color-mix(in srgb, var(--color-bg) 65%, white); border-radius: var(--radius-md); font-size: var(--text-sm); border: 1px dashed color-mix(in srgb, var(--color-text) 12%, transparent); }
+    .used-for { background: color-mix(in srgb, var(--accent, var(--color-primary)) 8%, var(--color-surface-offset)); border-radius: var(--radius-md); padding: var(--space-4); }
+    .used-for h4 { font-size: var(--text-sm); margin-bottom: var(--space-2); }
+    .used-for ul { list-style: none; display: grid; gap: .5rem; }
+    .used-for li { font-size: var(--text-sm); color: var(--color-text-muted); display: flex; gap: .55rem; }
+    .used-for li::before { content: '→'; color: var(--accent, var(--color-primary)); font-weight: 700; }
+    .concept.math { --accent: var(--color-primary); }
+    .concept.ml { --accent: var(--color-blue); }
+    .concept.stats { --accent: var(--color-gold); }
+    .concept.opt { --accent: var(--color-success); }
+    .concept.systems { --accent: var(--color-purple); }
+    .callout-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    .callout {
+      padding: var(--space-5); background: linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 90%, white), var(--color-surface-offset)); border-radius: var(--radius-lg); border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    }
+    .callout h3 { font-size: var(--text-lg); margin-bottom: .35rem; }
+    .callout p { color: var(--color-text-muted); font-size: var(--text-sm); }
+    .cheat-sheet { overflow: auto; border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-sm); }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; }
+    th, td { text-align: left; padding: .95rem 1rem; vertical-align: top; border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); }
+    th { font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase; color: var(--color-text-muted); background: color-mix(in srgb, var(--color-surface-offset) 70%, transparent); }
+    td { font-size: var(--text-sm); }
+    .footer { padding: var(--space-12) 0 var(--space-6); color: var(--color-text-muted); font-size: var(--text-sm); }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em; padding: .15rem .4rem; border-radius: .4rem; background: color-mix(in srgb, var(--color-text) 8%, transparent); }
+    @media (max-width: 980px) {
+      .hero-grid, .concept, .callout-grid { grid-template-columns: 1fr; }
+      .phase::before { left: 18px; }
+      .concept { margin-left: var(--space-6); }
+      .concept::before { left: calc(-1 * var(--space-5)); }
+      .concept::after { left: calc(-1 * var(--space-5) + 8px); width: calc(var(--space-5) - 8px); }
+    }
+    @media (max-width: 720px) {
+      .header-inner, .section-title, .phase-head { align-items: start; flex-direction: column; }
+      .pill-link { display: none; }
+      .hero h1 { max-width: 11ch; }
+      .phase { padding: var(--space-5); }
+      .phase::before { top: 102px; left: 14px; }
+      .concept { margin-left: var(--space-5); padding: var(--space-4); }
+    }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <a href="#content" class="skip-link">Skip to content</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="AI foundations map home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 17 12 4l8 13"></path>
+            <path d="M8.5 17h7"></path>
+            <circle cx="12" cy="13" r="2.2"></circle>
+          </svg>
+        </span>
+        <span class="brand-copy"><strong>AI Foundations Map</strong><span>Math → ML → AI engineering usage</span></span>
+      </a>
+      <div class="header-actions">
+        <a class="pill-link" href="#cheatsheet">Fast lookup</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">◐</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content" class="shell">
+    <section class="hero" id="top">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Learning hierarchy for AI engineering</span>
+          <h1>Learn vectors and the rest of ML foundations in the right order.</h1>
+          <p class="lead">This page is designed as a mental map: start from the math objects, then move to learning algorithms, then connect each idea to the part of AI engineering where it actually shows up, such as embeddings, training loops, evaluation, retrieval, optimization, and numerical reliability.</p>
+        </div>
+        <aside class="hero-card" aria-label="How to use this page">
+          <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-4);">How to read the map</h2>
+          <div class="mini-map">
+            <div class="mini-row"><span>1. Learn the object</span><span class="tag">vector, matrix, tensor</span></div>
+            <div class="mini-row"><span>2. Learn the operation</span><span class="tag">dot, multiply, decompose</span></div>
+            <div class="mini-row"><span>3. Learn the intuition</span><span class="tag">distance, projection, change</span></div>
+            <div class="mini-row"><span>4. Learn the ML role</span><span class="tag">loss, gradient, model update</span></div>
+            <div class="mini-row"><span>5. Learn the engineering use</span><span class="tag">embeddings, ranking, stability</span></div>
+          </div>
+          <div class="example" style="margin-top:var(--space-4);">
+            <strong>Example:</strong> A vector is an ordered list of numbers. In AI engineering, an embedding is a vector; cosine similarity compares vectors to find semantically similar chunks, images, or users.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="section-title">
+        <div>
+          <h2>Ordered roadmap</h2>
+          <p>Within each phase, the ideas are arranged from core objects first, then transformations, then uncertainty, then optimization, then practical ML models.</p>
+        </div>
+      </div>
+      <div class="legend" aria-label="Legend">
+        <span><i class="dot" style="background:var(--color-primary)"></i>Math object / transformation</span>
+        <span><i class="dot" style="background:var(--color-gold)"></i>Probability / statistics</span>
+        <span><i class="dot" style="background:var(--color-success)"></i>Optimization / training</span>
+        <span><i class="dot" style="background:var(--color-blue)"></i>ML algorithm / workflow</span>
+        <span><i class="dot" style="background:var(--color-purple)"></i>Systems / numerical view</span>
+      </div>
+
+      <div class="roadmap">
+        <article class="phase">
+          <div class="phase-head">
+            <div>
+              <div class="phase-number">Phase 01</div>
+              <div class="phase-name">Math foundations</div>
+            </div>
+            <div class="phase-badge">Build intuition before formulas</div>
+          </div>
+          <div class="concept-list">
+            <section class="concept math">
+              <div>
+                <h3>1. Vectors, norms, distances</h3>
+                <p>A vector is an ordered list of numbers, like position, features, or an embedding. Norms tell you “how big” a vector is, and distances tell you how far two vectors are from each other.</p>
+                <div class="example"><strong>Think:</strong> one movie embedding vector compared to another movie embedding vector using cosine similarity.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Embeddings for RAG, semantic search, recommender systems.</li>
+                  <li>KNN, clustering, nearest-neighbor retrieval.</li>
+                  <li>Feature scaling and similarity metrics.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept math">
+              <div>
+                <h3>2. Matrices and linear systems</h3>
+                <p>A matrix is a table of numbers that usually represents many vectors together or a transformation applied to vectors. Linear systems ask: what values satisfy multiple equations at the same time?</p>
+                <div class="example"><strong>Think:</strong> your dataset is often a matrix: rows are samples, columns are features.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Design matrices in regression and classification.</li>
+                  <li>Batched operations on GPUs.</li>
+                  <li>Solving least-squares problems and calibration tasks.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept math">
+              <div>
+                <h3>3. Matrix transformations, eigenvalues, eigenvectors</h3>
+                <p>A matrix can rotate, stretch, squash, or project vectors. Eigenvectors are special directions that stay on the same line after the transformation; eigenvalues tell you how much they scale.</p>
+                <div class="example"><strong>Think:</strong> PCA finds important directions of variation in the data.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>PCA and covariance analysis.</li>
+                  <li>Stability analysis for iterative methods.</li>
+                  <li>Understanding dominant directions in data or operators.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept opt">
+              <div>
+                <h3>4. Derivatives, gradients, chain rule, automatic differentiation</h3>
+                <p>A derivative measures how much an output changes when an input changes. A gradient is the vector of derivatives for many parameters. The chain rule passes change information through a composition of functions, and autodiff automates that bookkeeping.</p>
+                <div class="example"><strong>Think:</strong> loss depends on prediction, prediction depends on weights, so gradients flow backward from loss to weights.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Backpropagation in neural networks.</li>
+                  <li>Training custom losses and differentiable pipelines.</li>
+                  <li>Frameworks like PyTorch, JAX, TensorFlow autodiff engines.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept stats">
+              <div>
+                <h3>5. Probability, distributions, Bayes, sampling, statistics</h3>
+                <p>Probability models uncertainty; distributions describe how values are spread. Bayes updates belief after seeing evidence. Statistics helps you summarize, estimate, test, and reason from data rather than from anecdotes.</p>
+                <div class="example"><strong>Think:</strong> spam probability changes after you observe words like “free”, “offer”, or “urgent”.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Naive Bayes, uncertainty estimation, calibration.</li>
+                  <li>Data analysis, A/B tests, confidence intervals.</li>
+                  <li>Sampling training batches and synthetic generation steps.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept opt">
+              <div>
+                <h3>6. Optimization, convexity, gradient descent family</h3>
+                <p>Optimization is the problem of finding parameters that minimize loss. Convex problems are easier because every local minimum is global; deep learning is usually not convex, but gradient-based methods still work well in practice.</p>
+                <div class="example"><strong>Think:</strong> SGD, Momentum, RMSProp, Adam are all different ways to update parameters using gradients.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Training loops for regression, transformers, diffusion, vision models.</li>
+                  <li>Learning-rate schedules, weight decay, convergence tuning.</li>
+                  <li>Prompt tuning, fine-tuning, RL optimization variants.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept math">
+              <div>
+                <h3>7. SVD, PCA, dimensionality reduction</h3>
+                <p>SVD factorizes a matrix into meaningful parts; PCA uses similar linear-algebra ideas to find lower-dimensional structure. t-SNE and UMAP are mainly for visualization, not for preserving every original distance perfectly.</p>
+                <div class="example"><strong>Think:</strong> compress 10,000-dimensional features into a few principal directions for analysis.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Feature compression and latent structure discovery.</li>
+                  <li>Embedding visualization and error analysis.</li>
+                  <li>Low-rank approximations and efficient adaptation ideas.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept systems">
+              <div>
+                <h3>8. Tensors, numerical stability, information theory, Fourier, graphs, stochastic processes</h3>
+                <p>Tensors generalize vectors and matrices to higher dimensions. Numerical stability asks whether your computations break due to floating-point issues. Entropy and KL divergence measure uncertainty and distribution mismatch. Fourier transforms move between time/space and frequency views. Graph theory models nodes and relations. Stochastic processes model systems evolving with randomness.</p>
+                <div class="example"><strong>Think:</strong> a batch of RGB images is a 4D tensor; softmax overflow is a numerical stability problem.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Deep learning arrays, attention tensors, convolution inputs.</li>
+                  <li>Stable softmax, log-sum-exp, mixed precision training.</li>
+                  <li>Language modeling loss, diffusion noise schedules, graph neural networks, signal models.</li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </article>
+
+        <article class="phase">
+          <div class="phase-head">
+            <div>
+              <div class="phase-number">Phase 02</div>
+              <div class="phase-name">ML fundamentals</div>
+            </div>
+            <div class="phase-badge">Turn math into predictive systems</div>
+          </div>
+          <div class="concept-list">
+            <section class="concept ml">
+              <div>
+                <h3>9. What is machine learning</h3>
+                <p>Machine learning is the idea of learning patterns from data instead of hard-coding every rule. You define inputs, targets, a model family, a loss, and an update procedure.</p>
+                <div class="example"><strong>Template:</strong> data → model → prediction → loss → gradient → parameter update.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Framing product problems as prediction, ranking, generation, or decision tasks.</li>
+                  <li>Choosing whether a problem needs heuristics, classical ML, or deep learning.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept ml">
+              <div>
+                <h3>10. Linear regression and logistic regression</h3>
+                <p>Linear regression predicts continuous numbers; logistic regression predicts class probabilities. These are the cleanest places to understand parameters, features, loss, gradients, regularization, and decision boundaries.</p>
+                <div class="example"><strong>Think:</strong> price prediction versus spam/not-spam classification.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Baselines that are cheap, fast, and interpretable.</li>
+                  <li>Binary classifiers, conversion models, fraud risk scores.</li>
+                  <li>Debugging data pipelines before using bigger models.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept ml">
+              <div>
+                <h3>11. Trees, random forests, boosting</h3>
+                <p>Trees split data by feature rules. Random forests average many trees; boosting builds sequential weak learners that focus on previous errors.</p>
+                <div class="example"><strong>Think:</strong> “if income &lt; X and usage &gt; Y, then churn risk increases.”</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Tabular prediction tasks with mixed feature types.</li>
+                  <li>Feature importance, business-rule alignment, strong baseline models.</li>
+                  <li>Structured-data systems where deep nets may be unnecessary.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept ml">
+              <div>
+                <h3>12. SVM, KNN, distance metrics, Naive Bayes</h3>
+                <p>These models teach different modeling biases: max-margin thinking with SVM, local-neighbor reasoning with KNN, probabilistic independence assumptions with Naive Bayes.</p>
+                <div class="example"><strong>Think:</strong> KNN depends heavily on distance choice and feature scaling.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Text classification baselines and anomaly heuristics.</li>
+                  <li>Similarity search intuition that later helps with embeddings and vector DBs.</li>
+                  <li>Small-data classification problems.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept ml">
+              <div>
+                <h3>13. Clustering, anomaly detection, time series</h3>
+                <p>Clustering groups similar items without labels. Anomaly detection finds unusual behavior. Time series adds order, trend, seasonality, and temporal dependence.</p>
+                <div class="example"><strong>Think:</strong> grouping customers, flagging fraud spikes, forecasting traffic.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>User segmentation, observability, fraud and abuse detection.</li>
+                  <li>Infra demand forecasting and capacity planning.</li>
+                  <li>Monitoring embedding drift or model behavior drift.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept ml">
+              <div>
+                <h3>14. Feature engineering, selection, imbalance handling</h3>
+                <p>Good features often matter more than fancy models. Feature selection removes noisy variables; imbalance handling prevents rare classes from being ignored.</p>
+                <div class="example"><strong>Think:</strong> log transforms, counts, recency features, class weights, SMOTE.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Improving tabular models and classical ML pipelines.</li>
+                  <li>Making evaluation fair when positives are rare.</li>
+                  <li>Reducing overfitting and training cost.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="concept ml">
+              <div>
+                <h3>15. Evaluation, bias-variance, hyperparameter tuning, pipelines</h3>
+                <p>Evaluation tells you whether the model is truly useful, not just accurate on one split. Bias-variance explains underfitting versus overfitting. Pipelines make preprocessing and training reproducible; experiment tracking makes comparisons trustworthy.</p>
+                <div class="example"><strong>Think:</strong> use precision/recall for imbalance, not raw accuracy alone.</div>
+              </div>
+              <div class="used-for">
+                <h4>Used in AI engineering</h4>
+                <ul>
+                  <li>Reliable offline evaluation before deployment.</li>
+                  <li>Cross-validation, ablations, hyperparameter search.</li>
+                  <li>MLOps, experiment tracking, and reproducible production systems.</li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="concepts">
+      <div class="section-title">
+        <div>
+          <h2>Core concepts in plain English</h2>
+          <p>These mirror the style of your epoch/loss example: short, direct, and tied to training intuition.</p>
+        </div>
+      </div>
+      <div class="callout-grid">
+        <article class="callout">
+          <h3>Vector</h3>
+          <p>An ordered list of numbers representing one thing. In AI, that “thing” may be a user, a token, an image patch, or a retrieved document chunk.</p>
+        </article>
+        <article class="callout">
+          <h3>Matrix</h3>
+          <p>A grid of numbers representing many vectors together or a transformation applied to them. In practice, your batch data and learned weights are often matrices.</p>
+        </article>
+        <article class="callout">
+          <h3>Gradient</h3>
+          <p>A direction telling parameters how to change so the loss decreases fastest locally. Training uses this signal to update weights.</p>
+        </article>
+        <article class="callout">
+          <h3>Eigenvalue</h3>
+          <p>A scaling factor for a special direction of a transformation. It helps explain dominant modes in data and matrix behavior.</p>
+        </article>
+        <article class="callout">
+          <h3>Entropy</h3>
+          <p>A measure of uncertainty. High entropy means spread-out uncertainty; low entropy means confidence is concentrated.</p>
+        </article>
+        <article class="callout">
+          <h3>Pipeline</h3>
+          <p>The full repeatable path from raw data to trained model to evaluation. Good pipelines reduce leakage, bugs, and irreproducible results.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="cheatsheet">
+      <div class="section-title">
+        <div>
+          <h2>Fast lookup table</h2>
+          <p>Use this when you want a quick answer to “what is it?” and “where will I use it?”</p>
+        </div>
+      </div>
+      <div class="cheat-sheet">
+        <table>
+          <thead>
+            <tr>
+              <th>Concept</th>
+              <th>Simple meaning</th>
+              <th>Where used in AI engineering</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Vectors</td><td>One object as numbers</td><td>Embeddings, features, similarity search, recommendation</td></tr>
+            <tr><td>Matrices</td><td>Many vectors or one transformation</td><td>Model weights, batched data, linear layers</td></tr>
+            <tr><td>Matrix multiplication</td><td>Combine transformations and weighted sums</td><td>Neural network forward pass, attention projections</td></tr>
+            <tr><td>Eigenvalues / eigenvectors</td><td>Special directions of a transform</td><td>PCA intuition, operator analysis, stability reasoning</td></tr>
+            <tr><td>Derivatives / gradients</td><td>How output changes when input changes</td><td>Backpropagation and training</td></tr>
+            <tr><td>Chain rule</td><td>Pass sensitivity through composed functions</td><td>Autodiff engines and deep nets</td></tr>
+            <tr><td>Probability / distributions</td><td>Model uncertainty and randomness</td><td>Classification, calibration, generative modeling</td></tr>
+            <tr><td>Bayes' theorem</td><td>Update belief using evidence</td><td>Naive Bayes, diagnostic reasoning, posterior thinking</td></tr>
+            <tr><td>Optimization</td><td>Search for better parameters</td><td>Training every ML model</td></tr>
+            <tr><td>Entropy / KL</td><td>Uncertainty and distribution mismatch</td><td>Language-model losses, distillation, variational methods</td></tr>
+            <tr><td>PCA / SVD</td><td>Compress or factorize structure</td><td>Dimensionality reduction, low-rank approximations</td></tr>
+            <tr><td>Tensors</td><td>Higher-dimensional arrays</td><td>Images, audio, video, sequence batches, attention blocks</td></tr>
+            <tr><td>Numerical stability</td><td>Compute safely with finite precision</td><td>Stable softmax, normalization, mixed precision</td></tr>
+            <tr><td>Statistics</td><td>Reason from data summaries and estimates</td><td>EDA, evaluation, experimentation, data quality checks</td></tr>
+            <tr><td>Graph theory</td><td>Objects plus relations</td><td>Knowledge graphs, recommendation, GNNs</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Best viewed by reading top to bottom once, then revisiting concept cards as needed. Tip: open browser search with <span class="kbd">Ctrl/Cmd + F</span> and jump directly to any topic like <span class="kbd">vector</span>, <span class="kbd">PCA</span>, or <span class="kbd">Bayes</span>.
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle]');
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      const applyLabel = () => toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      applyLabel();
+      toggle.addEventListener('click', function () {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+        applyLabel();
+      });
+    })();
+  </script>
+</body>
+</html>
