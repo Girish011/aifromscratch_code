@@ -9,3 +9,5 @@ data/
 *.pt
 *.json
 *.pth
+*.wav
+*.csv
