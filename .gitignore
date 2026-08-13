@@ -3,6 +3,7 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+.DS_Store
 *.py
 *.md
 data/
@@ -11,3 +12,6 @@ data/
 *.pth
 *.wav
 *.csv
+*.safetensors
+week3/whisper-sales/
+week3/whisper-sales-lora/
